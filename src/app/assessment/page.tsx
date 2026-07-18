@@ -36,7 +36,8 @@ export default function AssessmentPage() {
     } else {
       generateRoadmap();
     }
-  }, [current, answers]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current]);
 
   const handleBack = useCallback(() => {
     if (current > 0) setCurrent((c) => c - 1);
