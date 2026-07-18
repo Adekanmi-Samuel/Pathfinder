@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { generateMockPaths } from "@/lib/demo-paths";
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,68 +13,71 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: "API key not configured" },
-        { status: 500 }
-      );
-    }
-
     // Get authenticated user (optional — works without auth for demo)
     const supabase = await createClient();
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
-    // Call Claude API
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1500,
-        messages: [{ role: "user", content: prompt }],
-      }),
-    });
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    let parsedPaths;
 
-    if (!response.ok) {
-      const text = await response.text();
-      console.error("Anthropic API error:", response.status, text);
-      return NextResponse.json(
-        { error: `AI service error: ${response.status}` },
-        { status: 502 }
+    if (apiKey) {
+      // Use Claude API for real AI-powered paths
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+        },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1500,
+          messages: [{ role: "user", content: prompt }],
+        }),
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        console.error("Anthropic API error:", response.status, text);
+        return NextResponse.json(
+          { error: `AI service error: ${response.status}` },
+          { status: 502 }
+        );
+      }
+
+      const data = await response.json();
+      const textBlock = data.content?.find(
+        (b: { type: string }) => b.type === "text"
       );
-    }
+      if (!textBlock) {
+        return NextResponse.json(
+          { error: "No content returned from AI" },
+          { status: 502 }
+        );
+      }
 
-    const data = await response.json();
-    const textBlock = data.content?.find(
-      (b: { type: string }) => b.type === "text"
-    );
-    if (!textBlock) {
-      return NextResponse.json(
-        { error: "No content returned from AI" },
-        { status: 502 }
-      );
-    }
+      // Parse JSON from response
+      let clean = textBlock.text.trim();
+      clean = clean
+        .replace(/^```json\s*/i, "")
+        .replace(/^```\s*/i, "")
+        .replace(/```\s*$/i, "");
+      const parsed = JSON.parse(clean);
 
-    // Parse JSON from response
-    let clean = textBlock.text.trim();
-    clean = clean
-      .replace(/^```json\s*/i, "")
-      .replace(/^```\s*/i, "")
-      .replace(/```\s*$/i, "");
-    const parsed = JSON.parse(clean);
+      if (!parsed.paths || !Array.isArray(parsed.paths)) {
+        return NextResponse.json(
+          { error: "Invalid response structure" },
+          { status: 502 }
+        );
+      }
 
-    if (!parsed.paths || !Array.isArray(parsed.paths)) {
-      return NextResponse.json(
-        { error: "Invalid response structure" },
-        { status: 502 }
-      );
+      parsedPaths = parsed.paths;
+    } else {
+      // Demo mode — generate paths from templates based on answers
+      console.log("No ANTHROPIC_API_KEY — using demo mode");
+      parsedPaths = generateMockPaths(answers);
     }
 
     // Save to Supabase if user is authenticated
@@ -87,7 +91,7 @@ export async function POST(request: NextRequest) {
 
       if (assessment) {
         // Save paths and milestones
-        for (const path of parsed.paths) {
+        for (const path of parsedPaths) {
           const { data: pathRecord } = await supabase
             .from("paths")
             .insert({
@@ -141,14 +145,14 @@ export async function POST(request: NextRequest) {
       sendAssessmentCompleteEmail({
         email: user.email,
         name: user.user_metadata?.full_name || user.email.split("@")[0],
-        paths: parsed.paths.map((p: { title: string; matchScore: number }) => ({
+        paths: parsedPaths.map((p: { title: string; matchScore: number }) => ({
           title: p.title,
           matchScore: p.matchScore,
         })),
       }).catch(() => {});
     }
 
-    return NextResponse.json({ paths: parsed.paths });
+    return NextResponse.json({ paths: parsedPaths });
   } catch (err) {
     console.error("Assessment generation error:", err);
     return NextResponse.json(
