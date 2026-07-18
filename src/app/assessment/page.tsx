@@ -142,9 +142,9 @@ Respond with ONLY valid JSON matching this structure:
           {viewState === "assessment" && (
             <>
               {/* Progress */}
-              <div className="h-[2px] bg-line rounded-sm overflow-hidden mb-3">
+              <div className="h-1 bg-line/60 rounded-full overflow-hidden mb-3">
                 <div
-                  className="h-full bg-amber transition-[width] duration-400 ease-out"
+                  className="h-full bg-amber rounded-full transition-[width] duration-500 ease-out"
                   style={{ width: `${pct}%` }}
                 />
               </div>
@@ -154,13 +154,13 @@ Respond with ONLY valid JSON matching this structure:
 
               {/* Question */}
               <div className="min-h-[340px]">
-                <div className="mb-3.5 font-mono text-xs text-amber-deep uppercase tracking-[0.06em]">
+                <div className="mb-4 font-mono text-[11px] text-amber-deep uppercase tracking-[0.08em]">
                   {q.mile} &middot; Question {current + 1} of {questions.length}
                 </div>
-                <h2 className="font-serif font-medium text-[clamp(24px,3.2vw,32px)] leading-[1.25] mb-2 max-w-[560px]">
+                <h2 className="font-serif font-medium text-[clamp(24px,3.2vw,32px)] leading-[1.25] mb-2.5 max-w-[560px] tracking-[-0.01em]">
                   {q.title}
                 </h2>
-                <p className="text-ink-soft text-[14.5px] mb-7">{q.hint}</p>
+                <p className="text-ink-soft text-[14.5px] mb-7 leading-relaxed">{q.hint}</p>
 
                 <QuestionCard
                   question={q}
@@ -174,10 +174,10 @@ Respond with ONLY valid JSON matching this structure:
               </div>
 
               {/* Navigation */}
-              <div className="flex justify-between items-center mt-11">
+              <div className="flex justify-between items-center mt-11 pt-6 border-t border-line/40">
                 <button
                   onClick={handleBack}
-                  className="bg-transparent text-ink-soft py-3 px-2 cursor-pointer font-sans hover:text-ink transition-colors"
+                  className="bg-transparent text-ink-soft py-3 px-3 cursor-pointer font-sans hover:text-ink transition-colors duration-200 rounded-sm"
                   style={{
                     visibility: current === 0 ? "hidden" : "visible",
                   }}

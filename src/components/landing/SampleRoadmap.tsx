@@ -2,8 +2,8 @@ export function SampleRoadmap() {
   return (
     <section id="preview" className="py-22 relative z-[2]">
       <div className="max-w-[1120px] mx-auto px-8">
-        <div className="bg-ink text-parchment rounded overflow-hidden">
-          <div className="py-14 px-14 grid md:grid-cols-[1fr_1.1fr] gap-14 items-center">
+        <div className="bg-ink text-parchment rounded overflow-hidden shadow-[0_25px_80px_-20px_rgba(26,29,41,0.35)]">
+          <div className="py-16 px-14 grid md:grid-cols-[1fr_1.1fr] gap-14 items-center">
             {/* Left copy */}
             <div>
               <span className="font-mono text-xs text-amber uppercase tracking-[0.08em] mb-3.5 block">
@@ -19,12 +19,12 @@ export function SampleRoadmap() {
             </div>
 
             {/* Right path card */}
-            <div className="bg-card text-ink rounded-card p-7 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]">
+            <div className="bg-card text-ink rounded-card p-7 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.2),0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-line/50">
               <div className="flex justify-between items-start mb-5">
                 <h4 className="font-serif text-[21px] font-semibold">
                   UX Designer
                 </h4>
-                <div className="flex flex-col items-center justify-center w-[52px] h-[52px] rounded-full border-2 border-amber">
+                <div className="flex flex-col items-center justify-center w-[56px] h-[56px] rounded-full border-2 border-amber bg-amber/10">
                   <span className="font-mono text-[13px] font-semibold text-amber-deep">
                     92
                   </span>
@@ -42,7 +42,7 @@ export function SampleRoadmap() {
                 {["Figma", "User research", "Prototyping"].map((s) => (
                   <span
                     key={s}
-                    className="font-mono text-[11.5px] bg-parchment-dim border border-line px-2.5 py-[5px] rounded-sm text-ink-soft"
+                    className="font-mono text-[11.5px] bg-parchment-dim border border-line px-3 py-[6px] rounded-sm text-ink-soft tracking-wide"
                   >
                     {s}
                   </span>

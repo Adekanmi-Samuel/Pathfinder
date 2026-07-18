@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/Button";
 export function Hero() {
   return (
     <header className="relative pt-24 pb-16 overflow-visible">
+      {/* Subtle radial gradient background */}
+      <div
+        className="absolute inset-0 -z-10 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 30% 20%, rgba(192,138,62,0.06) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 80% 60%, rgba(192,138,62,0.04) 0%, transparent 60%)",
+        }}
+      />
       <div className="max-w-[1120px] mx-auto px-8">
         {/* Eyebrow */}
         <div className="inline-flex items-center gap-2 font-mono text-xs text-amber-deep uppercase tracking-[0.08em] mb-6">
@@ -66,24 +74,30 @@ export function Hero() {
             <circle
               cx="20"
               cy="180"
-              r="6"
+              r="10"
               fill="var(--card)"
-              stroke="var(--ink)"
-              strokeWidth="1.5"
+              stroke="var(--amber)"
+              strokeWidth="2"
+            />
+            <circle
+              cx="20"
+              cy="180"
+              r="3"
+              fill="var(--amber)"
             />
             <text
               x="20"
-              y="205"
-              className="font-mono text-[11.5px]"
+              y="208"
+              className="font-mono text-[10.5px]"
               fill="var(--ink-soft)"
-              letterSpacing="0.06em"
+              letterSpacing="0.08em"
             >
               MILE 0
             </text>
             <text
               x="20"
-              y="150"
-              className="font-sans text-[14.5px] font-semibold"
+              y="158"
+              className="font-sans text-[14px] font-semibold"
               fill="var(--ink)"
             >
               Where you are
@@ -97,24 +111,30 @@ export function Hero() {
             <circle
               cx="320"
               cy="60"
-              r="6"
+              r="10"
               fill="var(--card)"
-              stroke="var(--ink)"
-              strokeWidth="1.5"
+              stroke="var(--amber)"
+              strokeWidth="2"
+            />
+            <circle
+              cx="320"
+              cy="60"
+              r="3"
+              fill="var(--amber)"
             />
             <text
               x="320"
               y="30"
-              className="font-mono text-[11.5px]"
+              className="font-mono text-[10.5px]"
               fill="var(--ink-soft)"
-              letterSpacing="0.06em"
+              letterSpacing="0.08em"
             >
               MILE 1
             </text>
             <text
               x="320"
               y="105"
-              className="font-sans text-[14.5px] font-semibold"
+              className="font-sans text-[14px] font-semibold"
               fill="var(--ink)"
             >
               The assessment
@@ -128,24 +148,30 @@ export function Hero() {
             <circle
               cx="580"
               cy="160"
-              r="6"
+              r="10"
               fill="var(--card)"
-              stroke="var(--ink)"
-              strokeWidth="1.5"
+              stroke="var(--amber)"
+              strokeWidth="2"
+            />
+            <circle
+              cx="580"
+              cy="160"
+              r="3"
+              fill="var(--amber)"
             />
             <text
               x="580"
-              y="185"
-              className="font-mono text-[11.5px]"
+              y="188"
+              className="font-mono text-[10.5px]"
               fill="var(--ink-soft)"
-              letterSpacing="0.06em"
+              letterSpacing="0.08em"
             >
               MILE 2
             </text>
             <text
               x="580"
-              y="135"
-              className="font-sans text-[14.5px] font-semibold"
+              y="138"
+              className="font-sans text-[14px] font-semibold"
               fill="var(--ink)"
             >
               Your roadmap
@@ -159,24 +185,30 @@ export function Hero() {
             <circle
               cx="860"
               cy="40"
-              r="6"
+              r="10"
               fill="var(--card)"
-              stroke="var(--ink)"
-              strokeWidth="1.5"
+              stroke="var(--amber)"
+              strokeWidth="2"
+            />
+            <circle
+              cx="860"
+              cy="40"
+              r="3"
+              fill="var(--amber)"
             />
             <text
               x="860"
               y="20"
-              className="font-mono text-[11.5px]"
+              className="font-mono text-[10.5px]"
               fill="var(--ink-soft)"
-              letterSpacing="0.06em"
+              letterSpacing="0.08em"
             >
               MILE 3
             </text>
             <text
               x="810"
               y="80"
-              className="font-sans text-[14.5px] font-semibold"
+              className="font-sans text-[14px] font-semibold"
               fill="var(--ink)"
             >
               Daily momentum

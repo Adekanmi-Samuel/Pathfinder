@@ -19,11 +19,22 @@ export function Greeting({ userName }: { userName?: string }) {
     user?.email?.split("@")[0] ||
     "there";
 
+  const timeEmoji: Record<string, string> = {
+    morning: "☀️",
+    afternoon: "⛅",
+    evening: "🌙",
+  };
+
   return (
-    <div className="mb-9">
-      <span className="font-mono text-[12.5px] text-amber-deep uppercase tracking-[0.06em] block mb-2.5">
-        {formatDate(new Date())}
-      </span>
+    <div className="mb-9 animate-fade-in">
+      <div className="flex items-center gap-2 mb-2.5">
+        <span className="inline-block text-[15px] opacity-70" aria-hidden="true">
+          {timeEmoji[timeOfDay]}
+        </span>
+        <span className="font-mono text-[12.5px] text-amber-deep uppercase tracking-[0.06em]">
+          {formatDate(new Date())}
+        </span>
+      </div>
       <h1 className="font-serif font-medium text-[clamp(26px,3.2vw,34px)]">
         {greetings[timeOfDay]}, {name}.
       </h1>

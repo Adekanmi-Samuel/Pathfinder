@@ -36,7 +36,8 @@ export function MilestoneTrail({
 
   if (milestones.length === 0) {
     return (
-      <div className="bg-card border border-line rounded-card p-7 text-center">
+      <div className="bg-card border border-line rounded-card p-7 text-center relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber/60 via-amber to-amber/60" />
         <h3 className="font-serif text-xl font-semibold mb-3">
           Your roadmap
         </h3>
@@ -45,7 +46,7 @@ export function MilestoneTrail({
         </p>
         <a
           href="/assessment"
-          className="inline-flex items-center justify-center gap-2 font-sans font-medium transition-all duration-150 rounded-card bg-ink text-parchment hover:bg-amber-deep hover:-translate-y-px active:translate-y-0 text-[15px] px-6 py-3"
+          className="inline-flex items-center justify-center gap-2 font-sans font-medium transition-all duration-200 rounded-card bg-ink text-parchment hover:bg-amber-deep hover:shadow-[0_3px_12px_rgba(156,110,46,0.25)] hover:-translate-y-px active:translate-y-0 text-[15px] px-6 py-3"
         >
           Start assessment
         </a>
@@ -64,49 +65,60 @@ export function MilestoneTrail({
         </span>
       </div>
 
-      <div className="bg-card border border-line rounded-card px-7">
-        {Object.entries(grouped).map(([month, monthMilestones]) => (
-          <div
-            key={month}
-            className="py-6 border-b border-line last:border-b-0"
-          >
-            <span className="font-mono text-[11.5px] text-amber-deep uppercase tracking-[0.06em] block mb-3.5">
-              Month {month}
-            </span>
-            {monthMilestones.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => onToggle?.(m.id, !m.completed)}
-                className={cn(
-                  "flex items-start gap-3.5 w-full text-left py-[9px] cursor-pointer select-none group bg-transparent border-none p-0"
-                )}
-              >
-                <div
-                  className={cn(
-                    "w-[18px] h-[18px] rounded-[3px] border-[1.5px] flex-shrink-0 mt-0.5 relative transition-all duration-150",
-                    m.completed
-                      ? "bg-amber border-amber"
-                      : "border-line group-hover:border-amber"
-                  )}
-                >
-                  {m.completed && (
-                    <div className="absolute left-1 top-0.5 w-[5px] h-[9px] border-r-2 border-b-2 border-card rotate-45 animate-pulse-check" />
-                  )}
-                </div>
-                <span
-                  className={cn(
-                    "text-[15px] font-sans transition-all duration-150",
-                    m.completed
-                      ? "text-ink-soft line-through opacity-70"
-                      : "text-ink"
-                  )}
-                >
-                  {m.label}
+      <div className="bg-card border border-line rounded-card overflow-hidden">
+        {Object.entries(grouped).map(([month, monthMilestones]) => {
+          const monthDone = monthMilestones.filter((m) => m.completed).length;
+          return (
+            <div
+              key={month}
+              className="py-6 px-7 border-b border-line last:border-b-0 group/month"
+            >
+              <div className="flex items-center justify-between mb-3.5">
+                <span className="font-mono text-[11.5px] text-amber-deep uppercase tracking-[0.06em]">
+                  Month {month}
                 </span>
-              </button>
-            ))}
-          </div>
-        ))}
+                <span className="font-mono text-[11px] text-ink-soft/60">
+                  {monthDone}/{monthMilestones.length}
+                </span>
+              </div>
+              <div className="space-y-0.5">
+                {monthMilestones.map((m) => (
+                  <button
+                    key={m.id}
+                    onClick={() => onToggle?.(m.id, !m.completed)}
+                    className={cn(
+                      "flex items-start gap-3.5 w-full text-left py-[10px] px-3 -mx-3 cursor-pointer select-none group bg-transparent border-none rounded-card transition-colors duration-150",
+                      "hover:bg-parchment-dim/60"
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        "w-[18px] h-[18px] rounded-[3px] border-[1.5px] flex-shrink-0 mt-0.5 relative transition-all duration-200",
+                        m.completed
+                          ? "bg-amber border-amber shadow-[0_1px_4px_rgba(192,138,62,0.3)]"
+                          : "border-line group-hover:border-amber/60"
+                      )}
+                    >
+                      {m.completed && (
+                        <div className="absolute left-1 top-0.5 w-[5px] h-[9px] border-r-2 border-b-2 border-card rotate-45 animate-pulse-check" />
+                      )}
+                    </div>
+                    <span
+                      className={cn(
+                        "text-[14.5px] font-sans transition-all duration-200",
+                        m.completed
+                          ? "text-ink-soft line-through opacity-60"
+                          : "text-ink"
+                      )}
+                    >
+                      {m.label}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

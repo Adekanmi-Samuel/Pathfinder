@@ -57,23 +57,26 @@ function SingleSelect({
           key={opt}
           onClick={() => onChange(opt)}
           className={cn(
-            "flex items-center gap-3.5 text-left bg-card border rounded-card px-[18px] py-4 text-[15.5px] font-sans transition-all duration-150 cursor-pointer",
+            "flex items-center gap-3.5 text-left bg-card border rounded-card px-[18px] py-4 text-[15.5px] font-sans cursor-pointer",
+            "transition-all duration-200 ease-out",
             value === opt
-              ? "border-amber bg-[#FAF3E7]"
-              : "border-line hover:border-amber"
+              ? "border-amber bg-[#FAF3E7] shadow-[0_1px_8px_rgba(192,138,62,0.1)]"
+              : "border-line/80 hover:border-amber/60 hover:bg-[#FDFAF5]"
           )}
         >
           <span
             className={cn(
-              "w-4 h-4 rounded-full border-[1.5px] flex-shrink-0 relative",
+              "w-[18px] h-[18px] rounded-full border-[1.5px] flex-shrink-0 relative transition-colors duration-200",
               value === opt ? "border-amber" : "border-line"
             )}
           >
             {value === opt && (
-              <span className="absolute inset-[3px] rounded-full bg-amber" />
+              <span className="absolute inset-[3px] rounded-full bg-amber transition-all duration-200" />
             )}
           </span>
-          {opt}
+          <span className={cn("transition-colors duration-200", value === opt ? "text-ink" : "text-ink/90")}>
+            {opt}
+          </span>
         </button>
       ))}
     </div>
@@ -110,23 +113,26 @@ function MultiSelect({
           key={opt}
           onClick={() => toggle(opt)}
           className={cn(
-            "flex items-center gap-3.5 text-left bg-card border rounded-card px-[18px] py-4 text-[15.5px] font-sans transition-all duration-150 cursor-pointer",
+            "flex items-center gap-3.5 text-left bg-card border rounded-card px-[18px] py-4 text-[15.5px] font-sans cursor-pointer",
+            "transition-all duration-200 ease-out",
             value.includes(opt)
-              ? "border-amber bg-[#FAF3E7]"
-              : "border-line hover:border-amber"
+              ? "border-amber bg-[#FAF3E7] shadow-[0_1px_8px_rgba(192,138,62,0.1)]"
+              : "border-line/80 hover:border-amber/60 hover:bg-[#FDFAF5]"
           )}
         >
           <span
             className={cn(
-              "w-4 h-4 rounded-[3px] border-[1.5px] flex-shrink-0 relative",
+              "w-[18px] h-[18px] rounded-[3px] border-[1.5px] flex-shrink-0 relative transition-colors duration-200",
               value.includes(opt) ? "border-amber" : "border-line"
             )}
           >
             {value.includes(opt) && (
-              <span className="absolute left-[3px] top-0.5 w-[5px] h-[9px] border-r-2 border-b-2 border-amber rotate-45" />
+              <span className="absolute left-[4px] top-[1px] w-[5px] h-[9px] border-r-2 border-b-2 border-amber rotate-45" />
             )}
           </span>
-          {opt}
+          <span className={cn("transition-colors duration-200", value.includes(opt) ? "text-ink" : "text-ink/90")}>
+            {opt}
+          </span>
         </button>
       ))}
     </div>

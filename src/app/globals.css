@@ -50,6 +50,7 @@ a:focus-visible, button:focus-visible {
   stroke-dasharray: 1400;
   stroke-dashoffset: 1400;
   animation: drawPath 2.2s cubic-bezier(0.16,1,0.3,1) forwards;
+  filter: drop-shadow(0 0 6px rgba(192, 138, 62, 0.3));
 }
 
 @keyframes drawPath {
@@ -70,7 +71,89 @@ a:focus-visible, button:focus-visible {
   to { stroke-dashoffset: -44; }
 }
 
+/* Orbiting dot on loading path */
+@keyframes orbitDot {
+  0%, 100% { transform: translate(0px, 14px); }
+  25% { transform: translate(50px, -10px); }
+  50% { transform: translate(100px, -10px); }
+  75% { transform: translate(110px, 14px); }
+}
+
+/* Smooth card hover lift */
+.card-hover {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -20px rgba(26, 29, 41, 0.18);
+}
+
+/* Gradient text for headings */
+.text-gradient {
+  background: linear-gradient(135deg, var(--ink) 0%, var(--amber-deep) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle shimmer effect for loading states */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--parchment-dim) 25%,
+    var(--parchment) 50%,
+    var(--parchment-dim) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Smooth page transitions */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+/* Focus ring for accessibility */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--parchment-dim);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-soft);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .trail-path { animation: none; stroke-dashoffset: 0; }
   .marching-path { animation: none; }
+  .card-hover:hover { transform: none; }
+  .animate-slide-up { animation: none; opacity: 1; }
+  .shimmer { animation: none; }
+  .animate-pulse { animation: none; }
+  [style*="orbitDot"] { animation: none !important; }
 }

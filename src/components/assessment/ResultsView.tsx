@@ -34,10 +34,10 @@ function PathCard({ path }: { path: CareerPath }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-card border border-line rounded-card p-7 mb-5">
-      <div className="flex justify-between items-start gap-4 mb-4">
-        <h4 className="font-serif text-[22px] font-semibold">{path.title}</h4>
-        <div className="flex flex-col items-center justify-center flex-shrink-0 w-[54px] h-[54px] rounded-full border-2 border-amber">
+    <div className="bg-card border border-line/80 rounded-card p-7 mb-5 shadow-[0_2px_16px_rgba(26,29,41,0.05)]">
+      <div className="flex justify-between items-start gap-4 mb-5">
+        <h4 className="font-serif text-[22px] font-semibold tracking-[-0.01em] leading-snug">{path.title}</h4>
+        <div className="flex flex-col items-center justify-center flex-shrink-0 w-[54px] h-[54px] rounded-full border-2 border-amber shadow-[0_0_0_4px_rgba(192,138,62,0.08)]">
           <span className="font-mono text-[13px] font-semibold text-amber-deep">
             {path.matchScore}
           </span>
@@ -47,7 +47,7 @@ function PathCard({ path }: { path: CareerPath }) {
         </div>
       </div>
 
-      <p className="text-[14.5px] text-ink-soft mb-5 leading-[1.6]">
+      <p className="text-[14.5px] text-ink-soft mb-5 leading-[1.65]">
         {path.why}
       </p>
 
@@ -55,7 +55,7 @@ function PathCard({ path }: { path: CareerPath }) {
         {path.skillsNeeded.map((s) => (
           <span
             key={s}
-            className="font-mono text-[11.5px] bg-parchment-dim border border-line px-2.5 py-[5px] rounded-sm text-ink-soft"
+            className="font-mono text-[11px] bg-parchment-dim/70 border border-line/60 px-2.5 py-[5px] rounded-md text-ink-soft tracking-wide"
           >
             {s}
           </span>
@@ -63,32 +63,32 @@ function PathCard({ path }: { path: CareerPath }) {
       </div>
 
       <div className="font-mono text-[13px] text-ink-soft mb-5">
-        Typical range: <b className="text-ink">{path.salaryRange}</b>
+        Typical range: <b className="text-ink font-medium">{path.salaryRange}</b>
       </div>
 
       <button
         onClick={() => setOpen(!open)}
-        className="bg-transparent border border-line text-ink text-[13.5px] px-4 py-2.5 rounded-sm cursor-pointer font-sans hover:border-amber transition-colors duration-150"
+        className="bg-transparent border border-line/80 text-ink text-[13.5px] px-4 py-2.5 rounded-sm cursor-pointer font-sans hover:border-amber/60 hover:bg-[#FDFAF5] transition-all duration-200"
       >
         {open ? "Hide roadmap" : "View 90-day roadmap"}
       </button>
 
       <div
         className={cn(
-          "mt-5 pt-5 border-t border-line",
-          open ? "block" : "hidden"
+          "overflow-hidden transition-all duration-300 ease-in-out",
+          open ? "max-h-[1000px] opacity-100 mt-5 pt-5 border-t border-line/60" : "max-h-0 opacity-0 mt-0 pt-0 border-t-0"
         )}
       >
         {(["month1", "month2", "month3"] as const).map((m, mi) => (
           <div key={m} className="mb-4">
-            <span className="font-mono text-[11.5px] text-amber-deep uppercase tracking-[0.05em] block mb-1.5">
+            <span className="font-mono text-[11px] text-amber-deep uppercase tracking-[0.06em] block mb-1.5">
               Month {mi + 1}
             </span>
             <ul className="list-none p-0">
               {path.roadmap[m].map((item, ii) => (
                 <li
                   key={ii}
-                  className="text-[14px] text-ink-soft py-1 pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-amber-deep"
+                  className="text-[14px] text-ink-soft py-1 pl-4 relative before:content-['\2014'] before:absolute before:left-0 before:text-amber-deep/60"
                 >
                   {item}
                 </li>
@@ -99,13 +99,13 @@ function PathCard({ path }: { path: CareerPath }) {
 
         {path.resources && path.resources.length > 0 && (
           <div className="mt-4">
-            <span className="font-mono text-[11.5px] text-amber-deep uppercase tracking-[0.05em] block mb-2">
+            <span className="font-mono text-[11px] text-amber-deep uppercase tracking-[0.06em] block mb-2">
               Resources
             </span>
             {path.resources.map((r, ri) => (
               <div key={ri} className="text-[14px] text-ink-soft py-1">
                 {r.name}{" "}
-                <span className="text-ink-soft/60">({r.type})</span>
+                <span className="text-ink-soft/50">({r.type})</span>
               </div>
             ))}
           </div>

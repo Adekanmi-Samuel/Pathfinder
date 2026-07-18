@@ -60,8 +60,16 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-parchment flex items-center justify-center px-6">
-      <div className="w-full max-w-[400px]">
+    <div className="relative min-h-screen bg-parchment flex items-center justify-center px-6 overflow-hidden">
+      {/* Subtle background decoration */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 80% 25%, #C08A3E 0%, transparent 50%), radial-gradient(circle at 20% 75%, #C08A3E 0%, transparent 50%)",
+        }}
+      />
+      <div className="relative z-10 w-full max-w-[400px]">
         {/* Logo */}
         <Link
           href="/"
@@ -71,8 +79,9 @@ export default function SignupPage() {
           Pathfinder
         </Link>
 
-        <div className="bg-card border border-line rounded-card p-8">
-          <h1 className="font-serif text-2xl font-medium text-center mb-2">
+        <div className="bg-card border border-line/80 rounded-card p-8 shadow-[0_2px_24px_rgba(26,29,41,0.06)]">
+          <div className="w-8 h-0.5 bg-amber/40 rounded-full mx-auto mb-6" />
+          <h1 className="font-serif text-[1.65rem] font-medium text-center mb-2 tracking-[-0.01em]">
             Create your account
           </h1>
           <p className="text-ink-soft text-sm text-center mb-8">
@@ -92,11 +101,11 @@ export default function SignupPage() {
             </div>
           )}
 
-          <form onSubmit={handleSignup} className="space-y-4">
+          <form onSubmit={handleSignup} className="space-y-5">
             <div>
               <label
                 htmlFor="fullName"
-                className="block font-mono text-xs text-ink-soft uppercase tracking-[0.06em] mb-2"
+                className="block font-mono text-[11px] text-ink-soft uppercase tracking-[0.08em] mb-2"
               >
                 Full name
               </label>
@@ -107,14 +116,14 @@ export default function SignupPage() {
                 onChange={(e) => setFullName(e.target.value)}
                 required
                 placeholder="Your name"
-                className="w-full bg-parchment-dim border border-line rounded-card px-4 py-3 font-sans text-base text-ink placeholder:text-[#A6A190] focus:outline-none focus:border-amber transition-colors duration-150"
+                className="w-full bg-parchment-dim/60 border border-line/70 rounded-card px-4 py-3.5 font-sans text-[15px] text-ink placeholder:text-[#B0AA98] focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber/20 transition-all duration-200"
               />
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block font-mono text-xs text-ink-soft uppercase tracking-[0.06em] mb-2"
+                className="block font-mono text-[11px] text-ink-soft uppercase tracking-[0.08em] mb-2"
               >
                 Email
               </label>
@@ -125,14 +134,14 @@ export default function SignupPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="you@example.com"
-                className="w-full bg-parchment-dim border border-line rounded-card px-4 py-3 font-sans text-base text-ink placeholder:text-[#A6A190] focus:outline-none focus:border-amber transition-colors duration-150"
+                className="w-full bg-parchment-dim/60 border border-line/70 rounded-card px-4 py-3.5 font-sans text-[15px] text-ink placeholder:text-[#B0AA98] focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber/20 transition-all duration-200"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block font-mono text-xs text-ink-soft uppercase tracking-[0.06em] mb-2"
+                className="block font-mono text-[11px] text-ink-soft uppercase tracking-[0.08em] mb-2"
               >
                 Password
               </label>
@@ -144,25 +153,25 @@ export default function SignupPage() {
                 required
                 minLength={6}
                 placeholder="At least 6 characters"
-                className="w-full bg-parchment-dim border border-line rounded-card px-4 py-3 font-sans text-base text-ink placeholder:text-[#A6A190] focus:outline-none focus:border-amber transition-colors duration-150"
+                className="w-full bg-parchment-dim/60 border border-line/70 rounded-card px-4 py-3.5 font-sans text-[15px] text-ink placeholder:text-[#B0AA98] focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber/20 transition-all duration-200"
               />
             </div>
 
             <Button
               type="submit"
               loading={loading}
-              className="w-full justify-center mt-2"
+              className="w-full justify-center mt-3"
             >
               Create account
             </Button>
           </form>
         </div>
 
-        <p className="text-center text-sm text-ink-soft mt-6">
+        <p className="text-center text-sm text-ink-soft mt-8">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-ink font-medium underline underline-offset-2 hover:text-amber-deep transition-colors"
+            className="text-ink font-medium underline underline-offset-2 decoration-ink/30 hover:decoration-ink hover:text-amber-deep transition-colors duration-200"
           >
             Sign in
           </Link>

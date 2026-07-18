@@ -19,10 +19,11 @@ export function Sidebar({
   timeLogged,
 }: SidebarProps) {
   return (
-    <div>
+    <div className="space-y-5">
       {/* Progress */}
-      <div className="bg-card border border-line rounded-card p-6 mb-5">
-        <h4 className="font-mono text-[11.5px] text-ink-soft uppercase tracking-[0.06em] mb-4">
+      <div className="bg-card border border-line rounded-card p-6 relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber/50 via-amber to-amber/50" />
+        <h4 className="font-mono text-[11.5px] text-ink-soft uppercase tracking-[0.06em] mb-5">
           Path progress
         </h4>
         <ProgressRing
@@ -32,8 +33,8 @@ export function Sidebar({
       </div>
 
       {/* Momentum */}
-      <div className="bg-card border border-line rounded-card p-6 mb-5">
-        <h4 className="font-mono text-[11.5px] text-ink-soft uppercase tracking-[0.06em] mb-4">
+      <div className="bg-card border border-line rounded-card p-6">
+        <h4 className="font-mono text-[11.5px] text-ink-soft uppercase tracking-[0.06em] mb-5">
           Momentum
         </h4>
         <MomentumBar
@@ -44,21 +45,23 @@ export function Sidebar({
       </div>
 
       {/* This week */}
-      <div className="bg-card border border-line rounded-card p-6">
-        <h4 className="font-mono text-[11.5px] text-ink-soft uppercase tracking-[0.06em] mb-4">
+      <div className="bg-card border border-line rounded-card overflow-hidden">
+        <h4 className="font-mono text-[11.5px] text-ink-soft uppercase tracking-[0.06em] px-6 pt-6 pb-4">
           This week
         </h4>
-        <div className="flex justify-between py-2.5 border-t border-line first:border-t-0 text-[14px]">
-          <span>Check-ins</span>
-          <b className="font-mono font-semibold">{checkIns} / 7</b>
-        </div>
-        <div className="flex justify-between py-2.5 border-t border-line text-[14px]">
-          <span>Milestones done</span>
-          <b className="font-mono font-semibold">{milestonesDone}</b>
-        </div>
-        <div className="flex justify-between py-2.5 border-t border-line text-[14px]">
-          <span>Time logged</span>
-          <b className="font-mono font-semibold">{timeLogged} hrs</b>
+        <div className="px-6 pb-5 space-y-0">
+          <div className="flex justify-between items-center py-3 border-t border-line text-[14px]">
+            <span className="text-ink-soft">Check-ins</span>
+            <b className="font-mono font-semibold tabular-nums">{checkIns} / 7</b>
+          </div>
+          <div className="flex justify-between items-center py-3 border-t border-line text-[14px]">
+            <span className="text-ink-soft">Milestones done</span>
+            <b className="font-mono font-semibold tabular-nums">{milestonesDone}</b>
+          </div>
+          <div className="flex justify-between items-center py-3 border-t border-line text-[14px]">
+            <span className="text-ink-soft">Time logged</span>
+            <b className="font-mono font-semibold tabular-nums">{timeLogged} hrs</b>
+          </div>
         </div>
       </div>
     </div>

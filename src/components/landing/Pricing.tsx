@@ -108,10 +108,10 @@ export function Pricing() {
             <Card
               key={tier.id}
               hover
-              className={`p-9 relative ${tier.featured ? "!border-amber" : ""}`}
+              className={`p-9 relative ${tier.featured ? "!border-amber shadow-[0_4px_24px_-4px_rgba(192,138,62,0.2)] bg-gradient-to-b from-amber/[0.03] to-card" : ""}`}
             >
               {tier.featured && (
-                <span className="absolute -top-[13px] left-7 bg-amber text-card font-mono text-[11px] px-2.5 py-1 rounded-sm uppercase tracking-[0.05em]">
+                <span className="absolute -top-[13px] left-7 bg-amber text-card font-mono text-[11px] px-2.5 py-1 rounded-sm uppercase tracking-[0.05em] shadow-[0_2px_8px_rgba(192,138,62,0.3)]">
                   Most common
                 </span>
               )}

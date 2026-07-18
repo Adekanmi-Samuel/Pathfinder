@@ -2,4 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /dashboard/
-Sitemap: https://pathfinder.app/sitemap.xml
+
+Sitemap: https://pathfinder-app-548.netlify.app/sitemap.xml

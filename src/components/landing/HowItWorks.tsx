@@ -42,19 +42,19 @@ export function HowItWorks() {
           {stops.map((stop, i) => (
             <div
               key={i}
-              className="grid grid-cols-[56px_1fr] gap-6 py-8 border-t border-line last:border-b"
+              className="group grid grid-cols-[56px_1fr] gap-6 py-8 border-t border-line last:border-b transition-colors duration-200 hover:bg-parchment-dim/50 -mx-4 px-4 rounded"
             >
               <div className="flex items-start justify-center pt-1">
-                <div className="w-3 h-3 rounded-full bg-card border-2 border-amber" />
+                <div className="w-3 h-3 rounded-full bg-card border-2 border-amber transition-transform duration-200 group-hover:scale-125 group-hover:bg-amber" />
               </div>
               <div>
                 <div className="font-mono text-xs text-amber-deep uppercase tracking-[0.06em] mb-1.5">
                   {stop.mile}
                 </div>
-                <h3 className="font-serif font-medium text-[22px] mb-2">
+                <h3 className="font-serif font-medium text-[22px] mb-2.5 transition-colors duration-200 group-hover:text-amber-deep">
                   {stop.title}
                 </h3>
-                <p className="text-ink-soft text-[15.5px] max-w-[520px]">
+                <p className="text-ink-soft text-[15.5px] max-w-[520px] leading-relaxed">
                   {stop.desc}
                 </p>
               </div>
