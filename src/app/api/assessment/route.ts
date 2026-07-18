@@ -135,6 +135,19 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Send assessment complete email (fire and forget)
+    if (user?.email) {
+      const { sendAssessmentCompleteEmail } = await import("@/lib/email");
+      sendAssessmentCompleteEmail({
+        email: user.email,
+        name: user.user_metadata?.full_name || user.email.split("@")[0],
+        paths: parsed.paths.map((p: { title: string; matchScore: number }) => ({
+          title: p.title,
+          matchScore: p.matchScore,
+        })),
+      }).catch(() => {});
+    }
+
     return NextResponse.json({ paths: parsed.paths });
   } catch (err) {
     console.error("Assessment generation error:", err);

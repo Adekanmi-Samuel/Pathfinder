@@ -72,7 +72,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-[13.5px] text-ink-soft hover:text-ink transition-colors duration-150">
+                <a href="mailto:hello@pathfinder.app" className="text-[13.5px] text-ink-soft hover:text-ink transition-colors duration-150">
                   Contact Support
                 </a>
               </li>
@@ -86,19 +86,19 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5">
               <li>
-                <a href="#" className="text-[13.5px] text-ink-soft hover:text-ink transition-colors duration-150">
+                <Link href="/privacy" className="text-[13.5px] text-ink-soft hover:text-ink transition-colors duration-150">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-[13.5px] text-ink-soft hover:text-ink transition-colors duration-150">
+                <Link href="/terms" className="text-[13.5px] text-ink-soft hover:text-ink transition-colors duration-150">
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-[13.5px] text-ink-soft hover:text-ink transition-colors duration-150">
+                <Link href="/privacy" className="text-[13.5px] text-ink-soft hover:text-ink transition-colors duration-150">
                   Cookie Policy
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -110,24 +110,24 @@ export function Footer() {
             &copy; 2026 Pathfinder. All rights reserved.
           </p>
           <div className="flex gap-5">
-            <a
-              href="#"
+            <Link
+              href="/privacy"
               className="text-[12.5px] text-ink-soft/70 hover:text-ink transition-colors duration-150"
             >
               Privacy
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/terms"
               className="text-[12.5px] text-ink-soft/70 hover:text-ink transition-colors duration-150"
             >
               Terms
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/privacy"
               className="text-[12.5px] text-ink-soft/70 hover:text-ink transition-colors duration-150"
             >
               Cookies
-            </a>
+            </Link>
           </div>
         </div>
       </div>

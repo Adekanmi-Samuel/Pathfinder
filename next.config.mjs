@@ -27,6 +27,11 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+
+  // External packages that shouldn't be bundled
+  experimental: {
+    serverComponentsExternalPackages: ["@opentelemetry/api"],
+  },
 };
 
 export default nextConfig;

@@ -47,6 +47,13 @@ export default function SignupPage() {
     setSuccess(true);
     setLoading(false);
 
+    // Send welcome email (fire and forget — don't block the flow)
+    fetch("/api/send-welcome", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, name: fullName }),
+    }).catch(() => {});
+
     // Try to sign in immediately (if email confirmation is disabled)
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email,
