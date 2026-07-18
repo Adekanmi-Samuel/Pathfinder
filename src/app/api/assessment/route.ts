@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     let parsedPaths;
 
-    if (apiKey) {
+    if (apiKey && apiKey.length > 5) {
       // Use Claude API for real AI-powered paths
       const response = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
