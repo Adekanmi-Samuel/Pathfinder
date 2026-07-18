@@ -3,11 +3,11 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { completed } = await request.json();
-    const { id } = params;
+    const { id } = await params;
 
     if (typeof completed !== "boolean") {
       return NextResponse.json(

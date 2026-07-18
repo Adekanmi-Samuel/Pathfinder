@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface CheckInCardProps {
   todayCheckIn?: string;
@@ -12,12 +12,21 @@ export function CheckInCard({ todayCheckIn, onSave }: CheckInCardProps) {
   const [saved, setSaved] = useState(!!todayCheckIn);
   const [savedText, setSavedText] = useState(todayCheckIn || "");
 
+  // Sync with external state changes (e.g., data refetch)
+  useEffect(() => {
+    if (todayCheckIn) {
+      setSaved(true);
+      setSavedText(todayCheckIn);
+    }
+  }, [todayCheckIn]);
+
   const handleSave = () => {
     const trimmed = value.trim();
     if (!trimmed) return;
     setSavedText(trimmed);
     setSaved(true);
     onSave?.(trimmed);
+    setValue("");
   };
 
   return (
@@ -49,7 +58,8 @@ export function CheckInCard({ todayCheckIn, onSave }: CheckInCardProps) {
           />
           <button
             onClick={handleSave}
-            className="bg-ink text-parchment border-none rounded-card px-5 py-3 text-[14px] font-medium cursor-pointer hover:bg-amber-deep transition-colors duration-150"
+            disabled={!value.trim()}
+            className="bg-ink text-parchment border-none rounded-card px-5 py-3 text-[14px] font-medium cursor-pointer hover:bg-amber-deep transition-colors duration-150 disabled:bg-line disabled:text-ink-soft disabled:cursor-not-allowed"
           >
             Set focus
           </button>

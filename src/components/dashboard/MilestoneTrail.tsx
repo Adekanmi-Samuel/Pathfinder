@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
 import { cn } from "@/lib/utils";
 
 interface Milestone {
@@ -18,26 +18,40 @@ interface MilestoneTrailProps {
 
 export function MilestoneTrail({
   milestones,
-  pathTitle = "UX Designer",
+  pathTitle = "Your path",
   onToggle,
 }: MilestoneTrailProps) {
-  const [items, setItems] = useState(milestones);
-  const doneCount = items.filter((m) => m.completed).length;
+  // Use props directly — no internal state to avoid sync issues
+  const doneCount = useMemo(
+    () => milestones.filter((m) => m.completed).length,
+    [milestones]
+  );
 
-  const grouped = items.reduce<Record<number, Milestone[]>>((acc, m) => {
-    (acc[m.month] ||= []).push(m);
-    return acc;
-  }, {});
+  const grouped = useMemo(() => {
+    return milestones.reduce<Record<number, Milestone[]>>((acc, m) => {
+      (acc[m.month] ||= []).push(m);
+      return acc;
+    }, {});
+  }, [milestones]);
 
-  const toggle = (id: string) => {
-    setItems((prev) =>
-      prev.map((m) =>
-        m.id === id ? { ...m, completed: !m.completed } : m
-      )
+  if (milestones.length === 0) {
+    return (
+      <div className="bg-card border border-line rounded-card p-7 text-center">
+        <h3 className="font-serif text-xl font-semibold mb-3">
+          Your roadmap
+        </h3>
+        <p className="text-ink-soft text-[14.5px] mb-5">
+          Take the assessment to get your personalized 90-day roadmap with actionable milestones.
+        </p>
+        <a
+          href="/assessment"
+          className="inline-flex items-center justify-center gap-2 font-sans font-medium transition-all duration-150 rounded-card bg-ink text-parchment hover:bg-amber-deep hover:-translate-y-px active:translate-y-0 text-[15px] px-6 py-3"
+        >
+          Start assessment
+        </a>
+      </div>
     );
-    const item = items.find((m) => m.id === id);
-    if (item) onToggle?.(id, !item.completed);
-  };
+  }
 
   return (
     <div>
@@ -46,7 +60,7 @@ export function MilestoneTrail({
           Your roadmap: {pathTitle}
         </h3>
         <span className="font-mono text-[12.5px] text-ink-soft">
-          {doneCount} of {items.length} milestones
+          {doneCount} of {milestones.length} milestones
         </span>
       </div>
 
@@ -62,7 +76,7 @@ export function MilestoneTrail({
             {monthMilestones.map((m) => (
               <button
                 key={m.id}
-                onClick={() => toggle(m.id)}
+                onClick={() => onToggle?.(m.id, !m.completed)}
                 className={cn(
                   "flex items-start gap-3.5 w-full text-left py-[9px] cursor-pointer select-none group bg-transparent border-none p-0"
                 )}
