@@ -6,6 +6,7 @@ import { Greeting } from "@/components/dashboard/Greeting";
 import { CheckInCard } from "@/components/dashboard/CheckInCard";
 import { MilestoneTrail } from "@/components/dashboard/MilestoneTrail";
 import { Sidebar } from "@/components/dashboard/Sidebar";
+import { DashboardSkeleton } from "@/components/ui/Skeleton";
 import { useEffect, useState, useCallback } from "react";
 
 interface Milestone {
@@ -179,10 +180,7 @@ export default function DashboardPage() {
           {/* Main content */}
           <div>
             {loading ? (
-              <div className="text-center py-20">
-                <div className="w-8 h-8 border-2 border-amber border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-ink-soft text-sm font-mono">Loading your path…</p>
-              </div>
+              <DashboardSkeleton />
             ) : error ? (
               <div className="bg-[#FBEDE9] border border-[#E8BDAF] rounded-card p-6">
                 <h3 className="font-serif text-lg text-error mb-2">
